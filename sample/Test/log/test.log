@@ -1,1 +1,21 @@
-[2018-08-24 17:51:45,398.474] [55188 test ERROR] [Source.cpp main(8)] often:test my log lib 我爱你
+[2018-08-25 13:45:19,623.988] [23360 test ERROR] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(22)] often:test my log lib 我爱你
+[2018-08-25 13:45:19,630.969] [23360 test ERROR] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(23)] often:test my log lib 元亨利贞
+[2018-08-25 13:45:19,635.957] [23360 test INFO ] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(24)] often:test my log lib 潜龙，勿用。
+[2018-08-25 13:45:19,639.945] [23360 test WARN ] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(25)] often:test my log lib 见龙在田，利见大人。
+[2018-08-25 13:45:19,645.929] [23360 test DEBUG] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(26)] often:test my log lib 君子终日乾乾，夕惕若厉,无咎。
+[2018-08-25 13:45:19,649.919] [23360 test FATAL] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(27)] often:test my log lib 或跃在渊，无咎
+[2018-08-25 13:45:19,655.904] [23360 test TRACE] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(28)] often:test my log lib 九五：飞龙在天，利见大人。
+[2018-08-25 13:46:00,220.070] [31176 test ERROR] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(22)] often:test my log lib 我爱你
+[2018-08-25 13:46:00,227.052] [31176 test ERROR] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(23)] often:test my log lib 元亨利贞
+[2018-08-25 13:46:00,234.034] [31176 test INFO ] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(24)] often:test my log lib 潜龙，勿用。
+[2018-08-25 13:46:00,240.018] [31176 test WARN ] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(25)] often:test my log lib 见龙在田，利见大人。
+[2018-08-25 13:46:00,245.004] [31176 test DEBUG] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(26)] often:test my log lib 君子终日乾乾，夕惕若厉,无咎。
+[2018-08-25 13:46:00,250.988] [31176 test FATAL] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(27)] often:test my log lib 或跃在渊，无咎
+[2018-08-25 13:46:00,255.975] [31176 test TRACE] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(28)] often:test my log lib 九五：飞龙在天，利见大人。
+[2018-08-25 13:46:17,851.215] [11724 test ERROR] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(22)] often:test my log lib 我爱你
+[2018-08-25 13:46:17,856.201] [11724 test ERROR] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(23)] often:test my log lib 元亨利贞
+[2018-08-25 13:46:17,862.185] [11724 test INFO ] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(24)] often:test my log lib 潜龙，勿用。
+[2018-08-25 13:46:17,867.172] [11724 test WARN ] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(25)] often:test my log lib 见龙在田，利见大人。
+[2018-08-25 13:46:17,873.157] [11724 test DEBUG] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(26)] often:test my log lib 君子终日乾乾，夕惕若厉,无咎。
+[2018-08-25 13:46:17,878.143] [11724 test FATAL] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(27)] often:test my log lib 或跃在渊，无咎
+[2018-08-25 13:46:17,883.129] [11724 test TRACE] [d:\learn\code_often\loglib\oftenloglib\sample\test\source.cpp main(28)] often:test my log lib 九五：飞龙在天，利见大人。

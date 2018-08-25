@@ -19,13 +19,11 @@ bool g_bStarted = false;
 
 
 log4cplus::LogLevel Translate_LogLevel(const LOG_LEVEL level);
-log_string Parse_Va_Param(const char* pFormat, va_list args);
+string Parse_Va_Param(const char* pFormat, va_list args);
 
 
-std::string ws2s(const std::wstring& ws);
-std::wstring s2ws(const std::string& s);
 
-static log_string ws2t(const std::wstring ws);
+
 
 
 std::string ws2s(const std::wstring& ws)
@@ -60,33 +58,6 @@ std::wstring s2ws(const std::string& s)
 
 
 
-static log_string ws2t(const std::wstring ws)
-{
-#if UNICODE
-	return ws;
-#else
-	return ws2s(ws);
-#endif
-}
-
-static log_string s2t(const std::string s)
-{
-#if UNICODE
-	return s2ws(s);
-#else
-	return s;
-#endif
-}
-
-static std::string t2s(const log_string s)
-{
-#if UNICODE
-	return ws2s(s);
-#else
-	return s;
-#endif
-}
-
 
 
 DLL_PUBLIC int Opr_InitLog(const char* pPropertiesFile)
@@ -112,18 +83,17 @@ DLL_PUBLIC int Opr_InitLog(const char* pPropertiesFile)
 	PropertyConfigurator::doConfigure(tsScriptFile);
 
 	SharedAppenderPtrList appendList = log4cplus::Logger::getRoot().getAllAppenders();
-	if (appendList.size() == 0)  //if root logger undefine Append
+	if (appendList.size() == 0)  //if root logger Undefined Append
 	{
 		// create appender object. default output the log to console
 		log4cplus::Logger::getRoot().setLogLevel(ALL_LOG_LEVEL);
 		SharedObjectPtr<Appender> append(new ConsoleAppender());
 		append->setName(LOG4CPLUS_TEXT("ConsoleAppender"));
 
-		// set appender layout */
+		// set appender layout 
 		log4cplus::tstring pattern = LOG4CPLUS_TEXT("[%D{%Y-%m-%d %H:%M:%S,%Q}] [%t %c %-5p] %m%n");
 		append->setLayout(std::auto_ptr<Layout>(new PatternLayout(pattern)));
 		log4cplus::Logger::getRoot().addAppender(append);
-		printf(" use the default append");
 	}
 
 	g_bStarted = true;
@@ -163,32 +133,32 @@ DLL_PUBLIC void Opr_DoLog(const char* pModule,
 	sprintf(acTmp, "%d", pFileline);
 
 	va_list args;
-	std::string strLog = "[" + std::string(pFilename) + " " + std::string(pFunction) + "(" + std::string(acTmp) + ")] ";
 
+	std::string strLog = "[" + std::string(pFilename) + " " + std::string(pFunction) + "(" + std::string(acTmp) + ")] ";
+	
 	va_start(args, pFormat);
 	strLog += Parse_Va_Param(pFormat, args);
 	va_end(args);
-
 	int nLog4cplus_Level = Translate_LogLevel(nLevel);
 	switch (nLog4cplus_Level)
 	{
 	case log4cplus::TRACE_LOG_LEVEL:
-		LOG4CPLUS_TRACE(logger, LOG4CPLUS_TEXT(strLog));
+		LOG4CPLUS_TRACE(logger, LOG4CPLUS_C_STR_TO_TSTRING(strLog.c_str()));
 		break;
 	case log4cplus::DEBUG_LOG_LEVEL:
-		LOG4CPLUS_DEBUG(logger, LOG4CPLUS_TEXT(strLog));
+		LOG4CPLUS_DEBUG(logger, LOG4CPLUS_C_STR_TO_TSTRING(strLog.c_str()));
 		break;
 	case log4cplus::INFO_LOG_LEVEL:
-		LOG4CPLUS_INFO(logger, LOG4CPLUS_TEXT(strLog));
+		LOG4CPLUS_INFO(logger, LOG4CPLUS_C_STR_TO_TSTRING(strLog.c_str()));
 		break;
 	case log4cplus::WARN_LOG_LEVEL:
-		LOG4CPLUS_WARN(logger, LOG4CPLUS_TEXT(strLog));
+		LOG4CPLUS_WARN(logger, LOG4CPLUS_C_STR_TO_TSTRING(strLog.c_str()));
 		break;
 	case log4cplus::ERROR_LOG_LEVEL:
-		LOG4CPLUS_ERROR(logger, LOG4CPLUS_TEXT(strLog));
+		LOG4CPLUS_ERROR(logger, LOG4CPLUS_C_STR_TO_TSTRING(strLog.c_str()));
 		break;
 	case log4cplus::FATAL_LOG_LEVEL:
-		LOG4CPLUS_FATAL(logger, LOG4CPLUS_TEXT(strLog));
+		LOG4CPLUS_FATAL(logger, LOG4CPLUS_C_STR_TO_TSTRING(strLog.c_str()));
 		break;
 	default:
 		break;
@@ -221,18 +191,19 @@ log4cplus::LogLevel Translate_LogLevel(const LOG_LEVEL level){
 
 
 
-log_string Parse_Va_Param(const char* pFormat, va_list args)
+string Parse_Va_Param(const char* pFormat, va_list args)
 {
 	if (NULL == pFormat)
 	{
-		return _LOG_T("");
+		return "";
 	}
+
 
 	int iNum = 0;
 	unsigned int uiSize = 1024;
-	log_string strLog(_LOG_T(""));
+	string strLog("");
 
-	log_char *pcBuff = new(std::nothrow) log_char[uiSize];
+	char *pcBuff = new(std::nothrow) char[uiSize];
 	if (NULL == pcBuff)
 	{
 		return strLog;
@@ -241,8 +212,8 @@ log_string Parse_Va_Param(const char* pFormat, va_list args)
 	while (true)
 	{
 		memset(pcBuff, 0, uiSize);
-		iNum = log_vsnwprintf_s(pcBuff, sizeof(pcBuff) / sizeof (log_char), uiSize, pFormat, args);
-		_vsnwprintf_s(pcBuff, sizeof(pcBuff) / sizeof (log_char), uiSize, pFormat, args);
+		iNum = vsnprintf_s(pcBuff, uiSize, _TRUNCATE, pFormat, args);
+		//vsnprintf(pcBuff, uiSize, logstrFormat.c_str(), args);
 		if ((iNum > -1) && (iNum < (int)uiSize))
 		{
 			strLog = pcBuff;
@@ -253,8 +224,7 @@ log_string Parse_Va_Param(const char* pFormat, va_list args)
 		//如果字符串值比默认分配大，则分配更大空间
 		uiSize = (iNum > -1) ? (int)(iNum + 1) : (uiSize * 2);
 		SAFE_DELETE(pcBuff);
-
-		pcBuff = new(std::nothrow) log_char[uiSize];
+		pcBuff = new(std::nothrow) char[uiSize];
 		if (NULL == pcBuff)
 		{
 			return strLog;

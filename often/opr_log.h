@@ -31,27 +31,6 @@ do \
 
 
 
-#if UNICODE
-typedef wchar_t log_char;
-typedef std::wstring log_string;
-typedef std::wistream tistream;
-typedef std::wostream tostream;
-
-#define _LOG_T(x)   L ## x
-
-#define tprintf wprintf
-#define log_vsnwprintf_s _vsnwprintf_s 
-#else
-typedef char log_char;
-typedef std::string log_string;
-typedef std::istream tistream;
-typedef std::ostream tostream;
-
-#define _LOG_T(x)   x
-
-#define tprintf printf
-#define log_vsnwprintf_s vsnprintf_s 
-#endif
 
 
 
